@@ -1,10 +1,11 @@
 import React from 'react'
-import PostList from '../features/PostList'
+import PostListConnector from '../features/PostList'
 import useAccount from '../hooks/useAccount'
 import LoginPortal from '../features/LoginPortal'
 import SplashScreen from '../features/SplashScreen/SplashScreen'
 
 const App = () => {
+    // eslint-disable-next-line
     const [{ loggedIn }, _, { loading }] = useAccount({ autoFetch: true })
 
     if (loading) {
@@ -12,7 +13,7 @@ const App = () => {
     }
 
     if (loggedIn) {
-        return <PostList />
+        return <PostListConnector />
     } else {
         return <LoginPortal />
     }

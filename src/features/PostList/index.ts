@@ -1,3 +1,3 @@
-import PostList from "./PostList";
+import PostListConnector from "./PostList-Connector";
 
-export default PostList
+export default PostListConnector
