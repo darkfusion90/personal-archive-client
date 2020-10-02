@@ -8,7 +8,10 @@ import {
     Typography,
 } from '@material-ui/core'
 
+import MaterialSkeleton, { SkeletonProps } from '@material-ui/lab/Skeleton'
+
 import PostMeta from './PostMeta'
+import PostComment from './PostComment'
 import constants from '../constants'
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -20,13 +23,20 @@ const useStyles = makeStyles((theme) => createStyles({
     }
 }))
 
+const Skeleton: React.FC<SkeletonProps> = (props) => {
+    return <MaterialSkeleton {...props} animation='wave' />
+}
+
 const PostListItem: IPostListItem = ({ post }) => {
     const classes = useStyles()
+    console.log(post ? 'Will use skeleton' : 'Will use actual posts')
+
+    const LineSkeleton = <Skeleton />
 
     const PostTitle = () => {
         return (
             <Typography className={classes.title} variant='h5'>
-                {post.title}
+                {post ? post.title : LineSkeleton}
             </Typography>
         )
     }
@@ -34,19 +44,31 @@ const PostListItem: IPostListItem = ({ post }) => {
     const PostSubtitle = () => {
         return (
             <>
-                {post.comment &&
-                    <Typography paragraph>
-                        {post.comment}
-                    </Typography>
+                {post ?
+                    <PostComment post={post} /> :
+                    <Skeleton variant='rect' height={64} />
                 }
-                <PostMeta post={post} />
+                {post ? <PostMeta post={post} /> : LineSkeleton}
             </>
         )
     }
 
+    const linkProps = post ? {
+        component: 'a',
+        button: true,
+        href: post.link || '#',
+        target: '_blank'
+    } : {}
+
+
     return (
-        <ListItem className={classes.root}>
-            <ListItemText primary={<PostTitle />} secondary={<PostSubtitle />} />
+        // @ts-ignore
+        <ListItem className={classes.root} {...linkProps}>
+            <ListItemText
+                primary={<PostTitle />}
+                secondary={<PostSubtitle />}
+                secondaryTypographyProps={{ component: 'div' }}
+            />
         </ListItem>
     )
 }

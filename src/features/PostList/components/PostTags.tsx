@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => createStyles({
     },
 
     tag: {
-        color: theme.palette.primary.light
+        color: theme.palette.primary.light,
     }
 }));
 
@@ -34,11 +34,15 @@ const PostTags: IPostTags = ({ post: { tags } }) => {
         // but the border will default to grey which doesn't look pretty :D
         return (
             <Chip
+                clickable
                 className={classes.tag}
                 size='small'
                 variant='outlined'
                 color='primary'
                 label={tag}
+                component='a'
+                href='http://localhost:7000'
+                target='_blank'
             />
         )
     }

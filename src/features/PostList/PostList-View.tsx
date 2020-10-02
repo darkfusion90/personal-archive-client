@@ -20,7 +20,13 @@ const useStyles = makeStyles((theme) => createStyles({
 const PostListView: IPostListView = ({ posts }) => {
     const classes = useStyles()
 
-    const renderItem = (post: PostModel) => <PostListItem post={post} />
+    const renderItem = (post?: PostModel) => {
+        const key = post ? post.id : Math.random()
+        return <PostListItem post={post} key={key} />
+    }
+
+    const fillerLength = posts.length === 0 ? 10 : 0
+    const fillerPosts = new Array<undefined>(fillerLength).fill(undefined)
 
     return (
         <>
@@ -31,6 +37,7 @@ const PostListView: IPostListView = ({ posts }) => {
                         POSTS
                     </ListSubheader>
                     {posts.map(renderItem)}
+                    {fillerPosts.map(renderItem)}
                 </List>
             </Container>
         </>

@@ -34,9 +34,11 @@ const PostMeta: IPostMeta = ({ post }) => {
                 </Typography>
             </Grid>
 
-            <Grid item>
-                <DotSeparatorIcon className={classes.dotSeparator} />
-            </Grid>
+            {post.tags.length > 0 &&
+                <Grid item>
+                    <DotSeparatorIcon className={classes.dotSeparator} />
+                </Grid>
+            }
 
             <Grid item>
                 <PostTags post={post} />

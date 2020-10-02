@@ -12,7 +12,7 @@ const store = configureStore({
         posts: postsReducer,
         form: formReducer
     },
-    middleware: getDefaultMiddleware().concat(middlewares)
+    middleware: getDefaultMiddleware({ serializableCheck: false }).concat(middlewares)
 })
 
 export type RootState = ReturnType<typeof store.getState>
