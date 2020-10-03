@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => createStyles({
 
 const AppBar = () => {
     const classes = useStyles()
+    // eslint-disable-next-line
     const [account, _, { loading: isAccountLoading }] = useAccount()
 
     const LoginButton = () => {
@@ -33,7 +34,7 @@ const AppBar = () => {
             return null
         }
 
-        return <AccountIcon />
+        return <AccountIcon fontSize='large' />
     }
 
     return (

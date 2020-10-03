@@ -1,20 +1,19 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
 
-import { ILoginPortalFormConnector, ILoginPortalFormConnectorOwnProps } from './typings/LoginPortal-FormConnector'
-import { ILoginResult } from './typings/LoginPortal-View'
-import LoginPortalView from './LoginPortal-View'
+import useAccount from '../../../hooks/useAccount'
+import { loginAsync } from '../../../store/states/account-state/actions'
+import unwrapAxiosThunkResult from '../../../utils/unwrap-axios-thunk-result'
 
-import useAccount from '../../hooks/useAccount'
-import { loginAsync } from '../../store/states/account-state/actions'
-import unwrapAxiosThunkResult from '../../utils/unwrap-axios-thunk-result'
-
+import { ILoginPageFormConnector, ILoginPageFormConnectorOwnProps } from './typings/LoginPage-FormConnector'
+import { ILoginResult } from './typings/LoginPage-View'
+import LoginPageContainer from './LoginPage-Container'
 
 const kFormId = 'login-form'
 
-const LoginPortalFormConnector: ILoginPortalFormConnector = ({ handleSubmit }) => {
+const LoginPageFormConnector: ILoginPageFormConnector = ({ handleSubmit }) => {
     // eslint-disable-next-line
-    const [_, { login }] = useAccount()
+    const [{ loggedIn }, { login }] = useAccount()
     const [isLoggingIn, setLoggingIn] = React.useState(false)
     const [loginError, setLoginError] = React.useState<string | undefined>(undefined)
     const [loginResult, setLoginResult] = React.useState<ILoginResult>()
@@ -42,7 +41,8 @@ const LoginPortalFormConnector: ILoginPortalFormConnector = ({ handleSubmit }) =
     }
 
     return (
-        <LoginPortalView
+        <LoginPageContainer
+            loggedIn={loggedIn}
             loginResult={loginResult}
             loginError={loginError}
             isLoggingIn={isLoggingIn}
@@ -52,10 +52,10 @@ const LoginPortalFormConnector: ILoginPortalFormConnector = ({ handleSubmit }) =
     )
 }
 
-export default reduxForm<LoginData, ILoginPortalFormConnectorOwnProps>({
+export default reduxForm<LoginData, ILoginPageFormConnectorOwnProps>({
     form: kFormId,
     initialValues: {
         username: 'John Doe',
         password: 'password'
     }
-})(LoginPortalFormConnector)
+})(LoginPageFormConnector)

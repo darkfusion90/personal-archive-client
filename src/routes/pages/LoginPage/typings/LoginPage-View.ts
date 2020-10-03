@@ -1,6 +1,7 @@
 export type ILoginResult = 'success' | 'failure' | undefined
 
-export interface ILoginPortalViewProps {
+export interface ILoginPageViewProps {
+    loggedIn: boolean
     isLoggingIn: boolean
     formId: string
     onFormSubmit: React.FormEventHandler
@@ -8,4 +9,4 @@ export interface ILoginPortalViewProps {
     loginResult?: ILoginResult
 }
 
-export type ILoginPortalView = React.FC<ILoginPortalViewProps>
+export type ILoginPageView = React.FC<ILoginPageViewProps>

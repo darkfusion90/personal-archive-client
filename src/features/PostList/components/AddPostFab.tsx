@@ -1,7 +1,7 @@
 import React from 'react'
 
 import FloatingActionButton from '@material-ui/core/Fab'
-import RefreshIcon from '@material-ui/icons/Refresh'
+import AddIcon from '@material-ui/icons/Add'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -20,7 +20,7 @@ const AddPostFab = () => {
             className={classes.fab}
             color='secondary'
         >
-            <RefreshIcon />
+            <AddIcon />
         </FloatingActionButton>
     )
 }

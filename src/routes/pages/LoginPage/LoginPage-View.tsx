@@ -1,15 +1,16 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
-import { useSnackbar } from 'notistack'
 
-import { ILoginPortalView } from './typings/LoginPortal-View'
-import TextFormField from '../../components/form-fields/TextFormField'
-import PasswordField from '../../components/form-fields/PasswordField'
-import LoadingButton from '../../components/LoadingButton'
+import { ILoginPageView } from './typings/LoginPage-View'
+import TextFormField from '../../../components/form-fields/TextFormField'
+import PasswordField from '../../../components/form-fields/PasswordField'
+import LoadingButton from '../../../components/LoadingButton'
 import { red } from '@material-ui/core/colors'
+import { routeMap } from '../..'
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
@@ -26,32 +27,19 @@ const useStyles = makeStyles((theme) => createStyles({
     }
 }))
 
-const LoginPortalView: ILoginPortalView = ({
+const LoginPageView: ILoginPageView = ({
+    loggedIn,
     isLoggingIn,
     formId,
     onFormSubmit,
     loginError,
     loginResult
 }) => {
-    const { enqueueSnackbar } = useSnackbar()
-    // If login fails, error snackbar is shown and then marked shown
-    // Next time the snackbar is not shown since it was marked shown
-    // Make sure to reset the flag on snackbar close/UI state changed (text field change, etc)
-    const [snackbarShown, setSnackbarShown] = React.useState(false)
-    if (loginResult && !snackbarShown) {
-        const onEnter = () => setSnackbarShown(true)
-
-        if (loginResult === 'success') {
-            enqueueSnackbar(
-                'Login Successful. You will be redirected shortly',
-                { variant: 'success', onEnter }
-            )
-        } else {
-            enqueueSnackbar('Login Failed', { variant: 'error', onEnter })
-        }
-    }
-
     const classes = useStyles()
+
+    if(loginResult === 'success' || loggedIn){
+        return <Redirect to={routeMap.home.path} />
+    }
 
     return (
         <div className={classes.root}>
@@ -111,4 +99,4 @@ const LoginPortalView: ILoginPortalView = ({
     )
 }
 
-export default LoginPortalView
+export default LoginPageView
