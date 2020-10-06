@@ -5,8 +5,7 @@ import { Redirect } from 'react-router-dom'
 import {
     ICreatePostFormConnector,
     ICreatePostFormData,
-    ICreatePostFormConnectorOwnProps,
-    ICreatePostState
+    ICreatePostFormConnectorOwnProps
 } from './typings'
 import CreatePostPageView from './CreatePostPage-View'
 import createPostFormValidator from './validator'
