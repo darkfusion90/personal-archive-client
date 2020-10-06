@@ -27,9 +27,19 @@ const Skeleton: React.FC<SkeletonProps> = (props) => {
     return <MaterialSkeleton {...props} animation='wave' />
 }
 
-const PostListItem: IPostListItem = ({ post }) => {
+const PostListItem: IPostListItem = ({ post, autoFocus }) => {
     const classes = useStyles()
-    console.log(post ? 'Will use skeleton' : 'Will use actual posts')
+    const [hasHighlighted, setHasHighlighted] = React.useState(false)
+
+    React.useEffect(() => {
+        if (autoFocus && !hasHighlighted) {
+            setTimeout(() => {
+                setHasHighlighted(true)
+            }, 3000);
+        }
+    }, [autoFocus, hasHighlighted, setHasHighlighted])
+
+    autoFocus && console.log('I will be focused!: ', post)
 
     const LineSkeleton = <Skeleton />
 
@@ -63,7 +73,12 @@ const PostListItem: IPostListItem = ({ post }) => {
 
     return (
         // @ts-ignore
-        <ListItem className={classes.root} {...linkProps}>
+        <ListItem
+            className={classes.root}
+            autoFocus={autoFocus}
+            selected={autoFocus && !hasHighlighted}
+            {...linkProps}
+        >
             <ListItemText
                 primary={<PostTitle />}
                 secondary={<PostSubtitle />}

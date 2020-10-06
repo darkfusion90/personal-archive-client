@@ -17,12 +17,17 @@ const useStyles = makeStyles((theme) => createStyles({
     }
 }))
 
-const PostListView: IPostListView = ({ posts }) => {
+const PostListView: IPostListView = ({ posts, highlightPost }) => {
+    console.log({ highlightPost })
     const classes = useStyles()
+
+    const shouldHighlightItem = (post?: PostModel) => {
+        return post && post.id === highlightPost
+    }
 
     const renderItem = (post?: PostModel) => {
         const key = post ? post.id : Math.random()
-        return <PostListItem post={post} key={key} />
+        return <PostListItem post={post} key={key} autoFocus={shouldHighlightItem(post)} />
     }
 
     const fillerLength = posts.length === 0 ? 10 : 0

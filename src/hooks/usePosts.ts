@@ -1,10 +1,11 @@
 import React from 'react'
 import PostModel from '../store/models/PostModel'
 import { unwrapResult } from '@reduxjs/toolkit'
-import { getAllPostsAsync } from '../store/states/posts-state/actions'
+import { getAllPostsAsync, createPostAsync } from '../store/states/posts-state/actions'
 import { useAppDispatch } from '../store'
 import { useSelector } from 'react-redux'
 import { selectAll as selectAllPosts } from '../store/states/posts-state/posts-selectors'
+import { ICreatePostData } from '../api/posts'
 
 interface IUsePostsHookOpts {
     autoFetch: boolean
@@ -19,6 +20,7 @@ interface IPostsFetchStatus {
 
 interface IPostsActions {
     updateAllPosts: VoidCallback
+    createPost: ValueCallback<ICreatePostData>
 }
 
 type IUsePostsHook = HookWithMeta<PostModel[], IPostsActions, IPostsFetchStatus>
@@ -46,7 +48,8 @@ const usePosts = ({ autoFetch }: IUsePostsHookOpts = { autoFetch: false }): IUse
     return [
         posts,
         {
-            updateAllPosts: () => dispatch(getAllPostsAsync())
+            updateAllPosts: () => dispatch(getAllPostsAsync()),
+            createPost: (data) => dispatch(createPostAsync(data))
         },
         {
             loading: postsStatus === 'loading',

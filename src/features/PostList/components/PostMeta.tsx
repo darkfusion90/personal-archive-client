@@ -23,12 +23,12 @@ const PostMeta: IPostMeta = ({ post }) => {
     return (
         <Grid
             container
-            wrap='wrap'
+            wrap='nowrap'
             alignItems='center'
             alignContent='center'
             spacing={2}
         >
-            <Grid item>
+            <Grid item wrap='nowrap'>
                 <Typography color='textSecondary'>
                     {creationDate}
                 </Typography>

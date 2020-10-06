@@ -10,11 +10,7 @@ interface PostModel {
     updatedAt: Date
 }
 
-export const postFromJson = (json: any): PostModel | null => {
-    if (!json) {
-        return null
-    }
-
+export const postFromJson = (json: any): PostModel => {
     return {
         id: json['_id'],
         title: json['title'],

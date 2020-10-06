@@ -1,4 +1,5 @@
 import getAllPostsAsync from "./get-all-posts";
+import createPostAsync from './create-post'
 
-export { getAllPostsAsync }
-export default { getAllPostsAsync }
+export { getAllPostsAsync, createPostAsync }
+export default { getAllPostsAsync, createPostAsync }

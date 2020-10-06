@@ -1,4 +1,4 @@
 import * as auth from './auth'
-import posts from './posts'
+import * as posts from './posts'
 
 export { auth, posts }

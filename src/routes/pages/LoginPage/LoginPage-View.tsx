@@ -14,7 +14,7 @@ import { routeMap } from '../..'
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
-        height: '100%',
+        //height: '100%',
         padding: theme.spacing(8)
     },
     fullHeight: {

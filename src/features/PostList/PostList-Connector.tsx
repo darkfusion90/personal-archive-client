@@ -2,10 +2,10 @@ import React from 'react'
 import PostListView from './PostList-View'
 import usePosts from '../../hooks/usePosts'
 
-const PostListConnector = () => {
+const PostListConnector: React.FC<{ highlightPost?: string }> = ({ highlightPost }) => {
     const [posts, { updateAllPosts }] = usePosts({ autoFetch: true })
 
-    return <PostListView posts={posts} onUpdatePosts={updateAllPosts} />
+    return <PostListView posts={posts} onUpdatePosts={updateAllPosts} highlightPost={highlightPost} />
 }
 
 export default PostListConnector
