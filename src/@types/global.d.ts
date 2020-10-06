@@ -16,3 +16,7 @@ type SimplifiedAxiosResponse = {
     statusText: string
     data: any
 }
+
+interface SharedDefaultProps {
+    className?: string
+}

@@ -1,7 +1,7 @@
 import PostModel from "../../../store/models/PostModel";
 
-export interface IPostListItemProps {
-    post?: PostModel
+export interface IPostListItemProps extends SharedDefaultProps {
+    post: PostModel
     autoFocus?: boolean
 }
 

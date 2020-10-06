@@ -15,6 +15,6 @@ export default function createPostFormValidator(values: ICreatePostFormData): Er
             errors.link = 'If provided, must be an url'
         }
     }
-    console.log({ errors })
+    
     return errors
 }

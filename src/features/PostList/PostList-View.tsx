@@ -2,48 +2,76 @@ import React from 'react'
 
 import Container from '@material-ui/core/Container'
 import List from '@material-ui/core/List'
+import ListSubheader from '@material-ui/core/ListSubheader'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-import { IPostListView } from './typings/PostList-View'
-import AddPostFab from './components/AddPostFab'
-import PostModel from '../../store/models/PostModel'
 import PostListItem from './components/PostListItem'
+import AddPostFab from './components/AddPostFab'
+import PostListSkeleton from './components/PostList-Skeleton'
+import NoPostsView from './components/NoPostsView'
+
+import PostModel from '../../store/models/PostModel'
+import { IPostListView } from './typings/PostList-View'
 import constants from './constants'
-import { ListSubheader } from '@material-ui/core'
+
 
 const useStyles = makeStyles((theme) => createStyles({
+    root: {
+        margin: `${theme.spacing(4)}px auto`
+    },
     listRoot: {
         marginBottom: `-${theme.spacing(constants.itemThemeSpacingUnit / 1.5)}px`
-    }
+    },
+    item: {
+        margin: `${theme.spacing(constants.itemThemeSpacingUnit)}px auto`
+    },
 }))
 
-const PostListView: IPostListView = ({ posts, highlightPost }) => {
-    console.log({ highlightPost })
+const PostListView: IPostListView = ({
+    posts,
+    highlightPost,
+    isLoading
+}) => {
     const classes = useStyles()
 
-    const shouldHighlightItem = (post?: PostModel) => {
-        return post && post.id === highlightPost
-    }
+    const subheader = (
+        <ListSubheader disableSticky className={classes.listRoot}>
+            POSTS
+        </ListSubheader>
+    )
 
-    const renderItem = (post?: PostModel) => {
-        const key = post ? post.id : Math.random()
-        return <PostListItem post={post} key={key} autoFocus={shouldHighlightItem(post)} />
+    const renderPosts = () => {
+        if(posts.length === 0){
+            return <NoPostsView />
+        }
+        
+        return (
+            <List>
+                {subheader}
+                {posts.map((post: PostModel) =>
+                    <PostListItem
+                        className={classes.item}
+                        post={post}
+                        key={post.id}
+                        autoFocus={post.id === highlightPost}
+                    />
+                )}
+            </List>
+        )
     }
-
-    const fillerLength = posts.length === 0 ? 10 : 0
-    const fillerPosts = new Array<undefined>(fillerLength).fill(undefined)
 
     return (
         <>
             <AddPostFab />
-            <Container maxWidth='md'>
-                <List>
-                    <ListSubheader disableSticky className={classes.listRoot}>
-                        POSTS
-                    </ListSubheader>
-                    {posts.map(renderItem)}
-                    {fillerPosts.map(renderItem)}
-                </List>
+            <Container maxWidth='md' className={classes.root}>
+                {
+                    isLoading ?
+                        <PostListSkeleton
+                            itemClassName={classes.item}
+                            subheader={subheader}
+                        /> :
+                        renderPosts()
+                }
             </Container>
         </>
     )

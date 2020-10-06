@@ -3,6 +3,7 @@ import { IPostTags } from '../typings/PostTags'
 
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import Chip from '@material-ui/core/Chip'
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
@@ -18,7 +19,9 @@ const useStyles = makeStyles((theme) => createStyles({
     tag: {
         color: theme.palette.primary.light,
     }
-}));
+}))
+
+const kMaxVisibleTags = 5
 
 const PostTags: IPostTags = ({ post: { tags } }) => {
     const classes = useStyles()
@@ -26,6 +29,8 @@ const PostTags: IPostTags = ({ post: { tags } }) => {
     if (tags.length === 0) {
         return null
     }
+
+    const remainingTags = tags.length - kMaxVisibleTags
 
     const renderSingleTag = (tag: string) => {
         // In case you're wondering why use color='primary' when already using that in className,
@@ -49,7 +54,14 @@ const PostTags: IPostTags = ({ post: { tags } }) => {
 
     return (
         <div className={classes.root}>
-            {tags.map(renderSingleTag)}
+            {tags.slice(0, Math.min(kMaxVisibleTags, tags.length)).map(renderSingleTag)}
+            {
+                remainingTags > 0 ?
+                    <Typography>
+                        + {remainingTags} tags
+                    </Typography> :
+                    null
+            }
         </div>
     )
 }

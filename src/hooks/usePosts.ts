@@ -1,11 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+
 import PostModel from '../store/models/PostModel'
-import { unwrapResult } from '@reduxjs/toolkit'
 import { getAllPostsAsync, createPostAsync } from '../store/states/posts-state/actions'
 import { useAppDispatch } from '../store'
-import { useSelector } from 'react-redux'
 import { selectAll as selectAllPosts } from '../store/states/posts-state/posts-selectors'
 import { ICreatePostData } from '../api/posts'
+import unwrapAxiosError from '../utils/unwrap-axios-thunk-result'
 
 interface IUsePostsHookOpts {
     autoFetch: boolean
@@ -16,6 +17,7 @@ interface IPostsFetchStatus {
     success: boolean
     failure: boolean
     uninitiated: boolean
+    error?: any
 }
 
 interface IPostsActions {
@@ -27,20 +29,24 @@ type IUsePostsHook = HookWithMeta<PostModel[], IPostsActions, IPostsFetchStatus>
 
 const usePosts = ({ autoFetch }: IUsePostsHookOpts = { autoFetch: false }): IUsePostsHook => {
     const [postsStatus, setPostsStatus] = React.useState<GenericAsyncState>('uninitiated')
+    const [error, setError] = React.useState<any>()
     const dispatch = useAppDispatch()
 
     React.useEffect(() => {
-        async function updateAccount() {
+        async function updatePosts() {
             if (autoFetch) {
                 setPostsStatus('loading')
                 await dispatch(getAllPostsAsync())
-                    .then(unwrapResult)
+                    .then(unwrapAxiosError)
                     .then((_: any) => setPostsStatus('success'))
-                    .catch((_: any) => setPostsStatus('fail'))
+                    .catch((err: any) => {
+                        setPostsStatus('fail')
+                        setError(err)
+                    })
             }
         }
 
-        updateAccount()
+        updatePosts()
     }, [dispatch, autoFetch])
 
     const posts = useSelector(selectAllPosts)
@@ -55,7 +61,8 @@ const usePosts = ({ autoFetch }: IUsePostsHookOpts = { autoFetch: false }): IUse
             loading: postsStatus === 'loading',
             success: postsStatus === 'success',
             failure: postsStatus === 'fail',
-            uninitiated: postsStatus === 'uninitiated'
+            uninitiated: postsStatus === 'uninitiated',
+            error
         }
     ]
 }

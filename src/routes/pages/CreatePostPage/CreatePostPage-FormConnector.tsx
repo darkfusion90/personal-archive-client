@@ -31,7 +31,6 @@ const CreatePostPageFormConnector: ICreatePostFormConnector = ({ handleSubmit, e
     })
 
     const submitForm = ({ tags, ...formValues }: ICreatePostFormData) => {
-        console.log('Form Submit: ', formValues)
         let stringTags: string[] | undefined
         if (tags) {
             stringTags = tags.map(tag => tag.value)
