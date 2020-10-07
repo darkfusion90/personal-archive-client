@@ -1,11 +1,22 @@
 import React from 'react'
-import { IPostListItem } from '../typings/PostListItem'
-import { ListItem, ListItemText } from '@material-ui/core'
+
+import { ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core'
+import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import PostTitle from './PostTitle'
 import PostSubtitle from './PostSubtitle'
+import PostActions from './PostActionButton'
+import { IPostListItem } from '../typings/PostListItem'
+
+const useStyles = makeStyles((theme) => createStyles({
+    postActionRoot: {
+        height: '100%'
+    }
+}))
+
 
 const PostListItem: IPostListItem = ({ post, autoFocus, className }) => {
+    const classes = useStyles()
     const [hasHighlighted, setHasHighlighted] = React.useState(false)
 
     React.useEffect(() => {
@@ -29,6 +40,9 @@ const PostListItem: IPostListItem = ({ post, autoFocus, className }) => {
                 secondary={<PostSubtitle post={post} />}
                 secondaryTypographyProps={{ component: 'div' }}
             />
+            <ListItemSecondaryAction className={classes.postActionRoot}>
+                <PostActions post={post} />
+            </ListItemSecondaryAction>
         </ListItem>
     )
 }
