@@ -5,6 +5,7 @@ import PostModel from '../store/models/PostModel'
 import { getAllPostsAsync, createPostAsync } from '../store/states/posts-state/actions'
 import { useAppDispatch } from '../store'
 import { selectAll as selectAllPosts } from '../store/states/posts-state/posts-selectors'
+
 import { ICreatePostData } from '../api/posts'
 import unwrapAxiosError from '../utils/unwrap-axios-thunk-result'
 
@@ -12,7 +13,7 @@ interface IUsePostsHookOpts {
     autoFetch: boolean
 }
 
-interface IPostsFetchStatus {
+export interface IPostsFetchStatus {
     loading: boolean
     success: boolean
     failure: boolean
