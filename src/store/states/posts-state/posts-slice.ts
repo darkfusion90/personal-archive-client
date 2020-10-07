@@ -1,7 +1,7 @@
 import { createSlice, SliceCaseReducers } from "@reduxjs/toolkit";
 import PostsState from "./PostsState";
 import postsAdapter from "./posts-adapter";
-import { getAllPostsAsync } from './actions'
+import { getAllPostsAsync, deletePostAsync } from './actions'
 
 const postsSlice = createSlice<PostsState, SliceCaseReducers<PostsState>>({
     name: 'posts-slice',
@@ -9,6 +9,7 @@ const postsSlice = createSlice<PostsState, SliceCaseReducers<PostsState>>({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(getAllPostsAsync.fulfilled, postsAdapter.addMany)
+        builder.addCase(deletePostAsync.fulfilled, postsAdapter.removeOne)
     }
 })
 
