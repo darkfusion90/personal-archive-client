@@ -9,7 +9,7 @@ type HookWithMeta<S, A, M = any> = [S, A, M]
 type GenericAsyncState = 'uninitiated' | 'loading' | 'fail' | 'success'
 
 type ValueCallback<T, R = any> = (value: T) => R
-type VoidCallback<R = any> = ValueCallback<void, R>
+type VoidCallback<R = any> = () => R
 
 type SimplifiedAxiosResponse = {
     status: number
