@@ -5,10 +5,10 @@ import MaterialAppBar from '@material-ui/core/AppBar'
 import { Toolbar, Typography, Button } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors';
-import AccountIcon from '@material-ui/icons/AccountCircle';
 
 import useAccount from '../../hooks/useAccount'
 import { routeMap } from '../../routes';
+import { AccountAvatar } from './components'
 
 const kStyleRemoveLink = {
     color: 'inherit',
@@ -53,14 +53,6 @@ const AppBar = () => {
         )
     }
 
-    const UserAvatar = () => {
-        if (isAccountLoading || !account.loggedIn) {
-            return null
-        }
-
-        return <AccountIcon fontSize='large' />
-    }
-
     return (
         <MaterialAppBar className={classes.root}>
             <Toolbar>
@@ -73,7 +65,7 @@ const AppBar = () => {
                     Personal Archive
                 </Typography>
                 <LoginButton />
-                <UserAvatar />
+                <AccountAvatar />
             </Toolbar>
         </MaterialAppBar>
     )
