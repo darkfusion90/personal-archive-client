@@ -8,7 +8,7 @@ const postsSlice = createSlice<PostsState, SliceCaseReducers<PostsState>>({
     initialState: postsAdapter.getInitialState(),
     reducers: {},
     extraReducers: builder => {
-        builder.addCase(getAllPostsAsync.fulfilled, postsAdapter.addMany)
+        builder.addCase(getAllPostsAsync.fulfilled, postsAdapter.setAll)
         builder.addCase(deletePostAsync.fulfilled, postsAdapter.removeOne)
     }
 })

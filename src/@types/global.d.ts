@@ -20,3 +20,15 @@ type SimplifiedAxiosResponse = {
 interface SharedDefaultProps {
     className?: string
 }
+
+declare module 'autosuggest-highlight/parse' {
+    type IParsed = {
+        text: string,
+        highlight: boolean
+    }
+
+    type IParse = (text: string, matches: [] | number[][]) => IParsed[]
+
+    const parse: IParse;
+    export default parse
+}

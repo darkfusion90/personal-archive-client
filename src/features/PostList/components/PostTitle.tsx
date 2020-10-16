@@ -1,9 +1,10 @@
 import React from 'react'
 import { IPostTitle } from '../typings/PostTitle'
 
-import Typography from '@material-ui/core/Typography'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { blue } from '@material-ui/core/colors'
+import HighlightTypography from '../../../components/HighlightTypography'
+import useFilter from '../../../hooks/useFilter'
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
@@ -21,17 +22,29 @@ const useStyles = makeStyles((theme) => createStyles({
 
 const PostTitle: IPostTitle = ({ post }) => {
     const classes = useStyles()
+    const [{ query }] = useFilter()
+    /* <Typography
+                className={classes.root}
+                variant='h5'
+                component='a'
+                href={post.link || '#'}
+                target='_blank'
+            >
+                {post.title}
+            </Typography> */
 
     return (
-        <Typography
+        <HighlightTypography
             className={classes.root}
             variant='h5'
+            // @ts-ignore
             component='a'
             href={post.link || '#'}
             target='_blank'
-        >
-            {post.title}
-        </Typography>
+
+            text={post.title}
+            query={query}
+        />
     )
 }
 

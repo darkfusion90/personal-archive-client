@@ -1,12 +1,18 @@
 import React from 'react'
 import { IPostComment } from '../typings/PostComment'
-import { Typography } from '@material-ui/core'
+
+import useFilter from '../../../hooks/useFilter'
+import HighlightTypography from '../../../components/HighlightTypography'
 
 const PostComment: IPostComment = ({ post: { comment } }) => {
+    const [{ query }] = useFilter()
+
     return (
-        <Typography paragraph>
-            {comment || ''}
-        </Typography>
+        <HighlightTypography
+            paragraph
+            text={comment}
+            query={query}
+        />
     )
 }
 

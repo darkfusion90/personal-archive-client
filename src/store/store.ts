@@ -3,6 +3,7 @@ import { reducer as formReducer } from 'redux-form'
 
 import { reducer as accountReducer } from "./states/account-state";
 import { reducer as postsReducer } from "./states/posts-state";
+import { reducer as filterReducer } from "./states/filter-state";
 import middlewares from './middlewares'
 import { useDispatch } from "react-redux";
 
@@ -10,6 +11,7 @@ const store = configureStore({
     reducer: {
         account: accountReducer,
         posts: postsReducer,
+        filter: filterReducer,
         form: formReducer
     },
     middleware: getDefaultMiddleware({ serializableCheck: false }).concat(middlewares)

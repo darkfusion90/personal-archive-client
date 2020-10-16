@@ -6,6 +6,7 @@ export interface IPostListViewProps {
     isLoading: boolean
     error?: any
     highlightPost?: string
+    searchQuery?: string
 }
 
 export type IPostListView = React.ComponentType<IPostListViewProps>

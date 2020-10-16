@@ -6,6 +6,7 @@ const rootTheme = createMuiTheme({
         type: 'dark',
         background: {
             default: '#121212',
+            paper: '#0e0e0e',
         },
         primary: {
             main: purple[500],

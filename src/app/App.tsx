@@ -28,7 +28,7 @@ const App = () => {
     return (
         <>
             <Helmet
-                titleTemplate='Personal Archive | %s'
+                titleTemplate='%s | Personal Archive'
                 defaultTitle='Personal Archive'
             />
             <AppContent />
