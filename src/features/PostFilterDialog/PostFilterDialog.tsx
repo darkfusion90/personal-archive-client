@@ -5,14 +5,18 @@ import {
     DialogContent,
     DialogActions,
     DialogProps,
-    Button
+    Button,
+    useMediaQuery,
+    Theme
 } from '@material-ui/core'
 
 import { PostFilterForm } from './components'
 
 const PostFilterDialog: React.FC<DialogProps> = (props) => {
+    const fullScreen = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'))
+
     return (
-        <Dialog disableEscapeKeyDown fullScreen {...props}>
+        <Dialog disableEscapeKeyDown fullScreen={fullScreen} {...props}>
             <DialogTitle>Filter Posts</DialogTitle>
             <DialogContent>
                 <PostFilterForm afterSetFilter={props.onClose as any} />
