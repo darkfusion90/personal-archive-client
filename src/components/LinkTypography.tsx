@@ -28,9 +28,7 @@ const LinkTypography: React.FC<TypographyProps & LinkProps> = ({ className, to, 
             component={Link}
             to={to}
             {...props}
-        >
-            Create Post
-        </Typography>
+        />
     )
 }
 
