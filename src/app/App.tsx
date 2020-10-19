@@ -1,15 +1,15 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import useAccount from '../hooks/useAccount'
 import SplashScreen from '../features/SplashScreen/SplashScreen'
 import routes from '../routes'
 import AppScaffold from '../features/AppScaffold/AppScaffold'
+import PageNotFound from '../routes/pages/PageNotFound'
 
 const AppContent = () => {
-    // eslint-disable-next-line
-    const [{ loggedIn }, _, { loading }] = useAccount({ autoFetch: true })
+    const { loading } = useAccount({ autoFetch: true })[2]
 
     if (loading) {
         return <SplashScreen />
@@ -18,7 +18,10 @@ const AppContent = () => {
     return (
         <BrowserRouter>
             <AppScaffold>
-                {routes.map(route => <Route {...route} key={route.path} />)}
+                <Switch>
+                    {routes.map(route => <Route {...route} key={route.path} />)}
+                    <Route path='*' component={PageNotFound} />
+                </Switch>
             </AppScaffold>
         </BrowserRouter>
     )
