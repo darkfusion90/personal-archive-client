@@ -8,21 +8,24 @@ export type ITextFormFieldProps = TextFieldProps & {
     label: string
 }
 
-const renderField:React.FC<WrappedFieldProps & ITextFormFieldProps> = ({
+const renderField: React.FC<WrappedFieldProps & ITextFormFieldProps> = ({
     input,
     meta: { touched, error },
     label,
     ...textFieldProps
 }) => {
+    const hasError = touched && error
+
     return (
         <>
             <TextField
-                label={label}
                 fullWidth
+                label={label}
+                error={hasError}
                 {...textFieldProps}
                 {...input}
             />
-            {touched && error && <Typography color='error'>{error}</Typography>}
+            {hasError && <Typography color='error'>{error}</Typography>}
         </>
     )
 }
