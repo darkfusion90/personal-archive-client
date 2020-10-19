@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import AccountModel from '../store/models/AccountModel'
 import { accountSelector } from '../store/states/account-state/account-selectors'
-import { updateAccountAsync, loginAsync, logoutAsync } from '../store/states/account-state/actions'
+import { updateAccountAsync, loginAsync, logoutAsync, createAccountAsync } from '../store/states/account-state/actions'
 import { useAppDispatch } from '../store'
 import { unwrapResult } from '@reduxjs/toolkit'
 
@@ -21,6 +21,7 @@ interface AccountFetchStatus {
 interface AccountActions {
     login: ValueCallback<LoginData>
     logout: VoidCallback
+    createAccount: ValueCallback<RegisterData>
     updateAccount: VoidCallback
 }
 
@@ -51,6 +52,7 @@ const useAccount = ({ autoFetch }: AccountHookOpts = { autoFetch: false }): Acco
         {
             login: (data) => dispatch(loginAsync(data)),
             logout: () => dispatch(logoutAsync()),
+            createAccount: (data) => dispatch(createAccountAsync(data)),
             updateAccount: () => dispatch(updateAccountAsync())
         },
         {
