@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 import Container from '@material-ui/core/Container'
 import List from '@material-ui/core/List'
@@ -17,6 +18,7 @@ import PostListFilter from './components/PostListFilter'
 import PostModel from '../../store/models/PostModel'
 import { IPostListView } from './typings/PostList-View'
 import constants from './constants'
+
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
@@ -90,6 +92,9 @@ const PostListView: IPostListView = ({
 
     return (
         <>
+            <Helmet>
+                <title>Posts</title>
+            </Helmet>
             <AddPostFab />
             <Container maxWidth='md' className={classes.root}>
                 {
