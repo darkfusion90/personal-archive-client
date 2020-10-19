@@ -1,8 +1,9 @@
 import React from 'react'
-import { TextField, InputAdornment, IconButton } from '@material-ui/core'
+import { InputAdornment, IconButton } from '@material-ui/core'
 import VisibilityOn from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import { Field, WrappedFieldProps } from 'redux-form'
+
+import TextFormField from './TextFormField'
 
 interface IPasswordFieldProps {
     name: string
@@ -17,11 +18,11 @@ const PasswordField: React.FC<IPasswordFieldProps> = ({
 
     const togglePasswordVisibility = () => setShowPassword(!showPassword)
 
-    const renderField = ({ input }: WrappedFieldProps) => {
-        return <TextField
-            {...input}
+    return (
+        <TextFormField
             type={showPassword ? 'text' : 'password'}
             label={label}
+            name={name}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position='end'>
@@ -37,13 +38,6 @@ const PasswordField: React.FC<IPasswordFieldProps> = ({
                     </InputAdornment>
                 )
             }}
-        />
-    }
-
-    return (
-        <Field
-            component={renderField}
-            name={name}
         />
     )
 }
