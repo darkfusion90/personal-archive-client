@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react"
 import { useSnackbar } from "notistack"
 
-interface IUseFormHookActions<M, E> {
+interface IUseFormHookActions<Meta, Error> {
     setFormSubmitting: VoidCallback
-    setFormSubmitFail: ValueCallback<E>
-    setFormSubmitSuccess: ValueCallback<M>
+    setFormSubmitFail: ValueCallback<Error>
+    setFormSubmitSuccess: ValueCallback<Meta>
 }
 
-export interface IFormState<M = any, E = any> {
+export interface IFormState<Meta = any, Error = any> {
     status: IFormStatus
-    meta?: M
-    error?: E
+    meta?: Meta
+    error?: Error
 }
 
 export type IFormStatus = 'initial' | 'submitting' | 'submit-fail' | 'submit-success'
@@ -21,7 +21,7 @@ interface IUseFormHookOpts {
     failureSnackbarMessage: string
 }
 
-const useForm = <M = void, E = void>({ successSnackbarMessage, failureSnackbarMessage }: IUseFormHookOpts): IUseFormHook<M, E> => {
+const useForm = <Meta = void, Error = void>({ successSnackbarMessage, failureSnackbarMessage }: IUseFormHookOpts): IUseFormHook<Meta, Error> => {
     const [formState, setFormState] = useState<IFormState>({ status: 'initial' })
     const [snackbarShown, setSnackbarShown] = useState(false)
     const { enqueueSnackbar } = useSnackbar()
@@ -45,8 +45,8 @@ const useForm = <M = void, E = void>({ successSnackbarMessage, failureSnackbarMe
     return [
         formState,
         {
-            setFormSubmitSuccess: (meta: M) => setFormState({ status: 'submit-success', meta }),
-            setFormSubmitFail: (error: E) => setFormState({ status: 'submit-fail', error }),
+            setFormSubmitSuccess: (meta: Meta) => setFormState({ status: 'submit-success', meta }),
+            setFormSubmitFail: (error: Error) => setFormState({ status: 'submit-fail', error }),
             setFormSubmitting: () => setFormState({ status: 'submitting' })
         }
     ]
