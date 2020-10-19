@@ -3,6 +3,10 @@ interface LoginData {
     password: string
 }
 
+type RegisterData = LoginData & {
+    email: string
+}
+
 type Hook<S, A> = [S, A]
 type HookWithMeta<S, A, M = any> = [S, A, M]
 
