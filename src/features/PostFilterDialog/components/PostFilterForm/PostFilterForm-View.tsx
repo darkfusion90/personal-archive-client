@@ -16,7 +16,9 @@ import TextFormField from '../../../../components/form-fields/TextFormField'
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
-        minWidth: `${theme.breakpoints.values['sm'] - 50}px`,
+        [theme.breakpoints.up('sm')]: {
+            minWidth: `${theme.breakpoints.width('sm') - 50}px`
+        },
         '& > *': {
             marginTop: theme.spacing(4)
         }
@@ -44,6 +46,7 @@ const PostFilterFormView: IPostFilterFormView = ({
                     label='Search Query'
                     variant='outlined'
                     autoFocus
+                    fullWidth
                 />
             </Grid>
 
