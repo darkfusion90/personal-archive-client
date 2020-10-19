@@ -1,8 +1,9 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import { ILoginPageView } from './typings/LoginPage-View'
@@ -11,6 +12,7 @@ import PasswordField from '../../../components/form-fields/PasswordField'
 import LoadingButton from '../../../components/LoadingButton'
 import { red } from '@material-ui/core/colors'
 import { routeMap } from '../..'
+import { Divider } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
@@ -37,7 +39,7 @@ const LoginPageView: ILoginPageView = ({
 }) => {
     const classes = useStyles()
 
-    if(loginResult === 'success' || loggedIn){
+    if (loginResult === 'success' || loggedIn) {
         return <Redirect to={routeMap.home.path} />
     }
 
@@ -84,15 +86,24 @@ const LoginPageView: ILoginPageView = ({
                 </Grid>
 
                 <Grid item container justify='center'>
-                    <LoadingButton
-                        loading={isLoggingIn}
-                        variant='contained'
-                        color='primary'
-                        type='submit'
-                        form={formId}
-                    >
-                        Login
-                    </LoadingButton>
+                    <Grid item>
+                        <LoadingButton
+                            loading={isLoggingIn}
+                            variant='contained'
+                            color='primary'
+                            type='submit'
+                            form={formId}
+                        >
+                            Login
+                        </LoadingButton>
+                    </Grid>
+                </Grid>
+
+                <Grid item>
+                    <Divider variant='fullWidth' />
+                    <Button component={Link} to={routeMap.register.path}>
+                        Create account instead
+                    </Button>
                 </Grid>
             </Grid>
         </div>
