@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { posts } from "../../../../api";
+import { createPost, IPostData } from "../../../../api/posts";
 import PostModel from "../../../models/PostModel";
 
-const createPostAsync = createAsyncThunk<PostModel | null, posts.ICreatePostData>(
+const createPostAsync = createAsyncThunk<PostModel | null, IPostData>(
     'createPostAsync',
-    posts.createPost
+    createPost
 )
 
 export default createPostAsync
