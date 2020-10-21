@@ -5,7 +5,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import PostTitle from './PostTitle'
 import PostSubtitle from './PostSubtitle'
-import PostActions from './PostActionButton'
+import PostActions from './PostActions'
 import { IPostListItem } from '../typings/PostListItem'
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => createStyles({
         height: '100%'
     }
 }))
-
 
 const PostListItem: IPostListItem = ({ post, autoFocus, className }) => {
     const classes = useStyles()
