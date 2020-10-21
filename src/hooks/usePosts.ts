@@ -2,11 +2,11 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import PostModel from '../store/models/PostModel'
-import { getAllPostsAsync, createPostAsync } from '../store/states/posts-state/actions'
+import { getAllPostsAsync, createPostAsync, editPostAsync } from '../store/states/posts-state/actions'
 import { useAppDispatch } from '../store'
 import { selectAll as selectAllPosts } from '../store/states/posts-state/posts-selectors'
 
-import { ICreatePostData } from '../api/posts'
+import { IPostData } from '../api/posts'
 import unwrapAxiosError from '../utils/unwrap-axios-thunk-result'
 
 interface IUsePostsHookOpts {
@@ -23,7 +23,8 @@ export interface IPostsFetchStatus {
 
 interface IPostsActions {
     updateAllPosts: VoidCallback
-    createPost: ValueCallback<ICreatePostData>
+    createPost: ValueCallback<IPostData>
+    editPost: ValueCallback<IPostData & { id: string }>
 }
 
 type IUsePostsHook = HookWithMeta<PostModel[], IPostsActions, IPostsFetchStatus>
@@ -56,7 +57,8 @@ const usePosts = ({ autoFetch }: IUsePostsHookOpts = { autoFetch: false }): IUse
         posts,
         {
             updateAllPosts: () => dispatch(getAllPostsAsync()),
-            createPost: (data) => dispatch(createPostAsync(data))
+            createPost: (data) => dispatch(createPostAsync(data)),
+            editPost: (data) => dispatch(editPostAsync(data))
         },
         {
             loading: postsStatus === 'loading',
