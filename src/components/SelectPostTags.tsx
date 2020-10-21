@@ -5,7 +5,10 @@ import TextField from '@material-ui/core/TextField'
 import Chip from '@material-ui/core/Chip'
 import AutoComplete, { AutocompleteRenderInputParams } from '@material-ui/lab/Autocomplete'
 
-import { IPostTag } from '../typings/CreatePostFormData'
+export interface IPostTag {
+    value: string
+    label: string
+}
 
 const renderSelect = ({ input: { value: currentValue, onChange } }: WrappedFieldProps) => {
     return (
