@@ -16,17 +16,31 @@ const useStyles = makeStyles((theme) => createStyles({
             textDecoration: 'none',
             color: blue[800],
         }
-    }
+    },
 }))
 
-const LinkTypography: React.FC<TypographyProps & LinkProps> = ({ className, to, ...props }) => {
+const LinkTypography: React.FC<TypographyProps & LinkProps & { linkOutsideApp?: boolean }> = ({
+    className,
+    to,
+    linkOutsideApp,
+    ...props
+}) => {
     const classes = useStyles()
+
+    const linkProps: any = {}
+    if (linkOutsideApp) {
+        linkProps.component = 'a'
+        linkProps.href = to
+        linkProps.target = '_blank'
+    }else{
+        linkProps.component = Link
+        linkProps.to = to
+    }
 
     return (
         <Typography
             className={clsx(className, classes.root)}
-            component={Link}
-            to={to}
+            {...linkProps}
             {...props}
         />
     )
