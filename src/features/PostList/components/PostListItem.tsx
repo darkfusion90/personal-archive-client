@@ -11,6 +11,9 @@ import { IPostListItem } from '../typings/PostListItem'
 const useStyles = makeStyles((theme) => createStyles({
     postActionRoot: {
         height: '100%'
+    },
+    subtitle: {
+        marginTop: theme.spacing(1)
     }
 }))
 
@@ -37,7 +40,7 @@ const PostListItem: IPostListItem = ({ post, autoFocus, className }) => {
             <ListItemText
                 primary={<PostTitle post={post} />}
                 secondary={<PostSubtitle post={post} />}
-                secondaryTypographyProps={{ component: 'div' }}
+                secondaryTypographyProps={{ component: 'div', className: classes.subtitle }}
             />
             <ListItemSecondaryAction className={classes.postActionRoot}>
                 <PostActions post={post} />
