@@ -8,7 +8,6 @@ import {
     ICreatePostFormConnectorOwnProps
 } from './typings'
 import CreatePostPageView from './CreatePostPage-View'
-import createPostFormValidator from './validator'
 
 import usePosts from '../../../hooks/usePosts'
 import { routeMap } from '../../routes'
@@ -16,6 +15,7 @@ import unwrapAxiosError from '../../../utils/unwrap-axios-thunk-result'
 import PostModel from '../../../store/models/PostModel'
 import { createPostAsync } from '../../../store/states/posts-state/actions'
 import useForm from '../../../hooks/useForm'
+import { validator as createPostFormValidator } from '../../../features/PostForm'
 
 const kFormId = 'create-post-form'
 const kInitialValues: ICreatePostFormData = {

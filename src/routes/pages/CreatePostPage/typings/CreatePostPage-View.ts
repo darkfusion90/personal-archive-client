@@ -1,8 +1,9 @@
 import { IFormState } from "../../../../hooks/useForm";
 import PostModel from "../../../../store/models/PostModel";
+import { IPostFormSubmitHandler } from "../../../../features/PostForm";
 
 export interface ICreatePostViewProps {
-    onFormSubmit: React.FormEventHandler
+    onFormSubmit: IPostFormSubmitHandler
     formId: string
 }
 

@@ -1,9 +1,8 @@
-export interface IPostTag {
-    value: string
-    label: string
-}
+import { IPostTag } from '../../../../components/SelectPostTags'
 
-export interface ICreatePostFormData{
+
+
+export interface ICreatePostFormData {
     title: string
     comment?: string
     link?: string
