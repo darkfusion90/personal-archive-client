@@ -1,13 +1,15 @@
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
-import CreatePostPageFormConnector from "./pages/CreatePostPage/CreatePostPage-FormConnector"
+import CreatePostPageForm from "./pages/CreatePostPage"
 import RegisterPage from "./pages/RegisterPage"
+import EditPostPage from './pages/EditPostPage'
 
 interface IRouteMap {
     home: IRoute
     login: IRoute
     register: IRoute
     createPost: IRoute
+    editPost: IRoute
 }
 
 interface IRoute {
@@ -33,8 +35,13 @@ export const routeMap: IRouteMap = {
         exact: true
     },
     createPost: {
-        path: '/new-post',
-        component: CreatePostPageFormConnector,
+        path: '/posts/new',
+        component: CreatePostPageForm,
+        exact: true
+    },
+    editPost: {
+        path: '/posts/:postId/edit',
+        component: EditPostPage,
         exact: true
     }
 }
