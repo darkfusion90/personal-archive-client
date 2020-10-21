@@ -20,18 +20,17 @@ const useStyles = makeStyles((theme) => createStyles({
     }
 }))
 
-const PostTitle: IPostTitle = ({ post }) => {
+const kMaxTitleLength = 50
+
+const PostTitle: IPostTitle = ({ post: { title: postTitle, link } }) => {
     const classes = useStyles()
     const [{ query }] = useFilter()
-    /* <Typography
-                className={classes.root}
-                variant='h5'
-                component='a'
-                href={post.link || '#'}
-                target='_blank'
-            >
-                {post.title}
-            </Typography> */
+
+    const trimmedTitle = postTitle.trim()
+    const titleLength = trimmedTitle.length
+    const strippedTitle = trimmedTitle.substring(0, kMaxTitleLength)
+    const ellipsis = titleLength > kMaxTitleLength ? '...' : ''
+    const displayTitle = `${strippedTitle}${ellipsis}`
 
     return (
         <HighlightTypography
@@ -39,10 +38,9 @@ const PostTitle: IPostTitle = ({ post }) => {
             variant='h5'
             // @ts-ignore
             component='a'
-            href={post.link || '#'}
+            href={link || '#'}
             target='_blank'
-
-            text={post.title}
+            text={displayTitle}
             query={query}
         />
     )
