@@ -1,3 +1,5 @@
 export * from './posts-get'
 export * from './posts-create'
 export * from './posts-delete'
+export * from './posts-edit'
+export * from './shared'
