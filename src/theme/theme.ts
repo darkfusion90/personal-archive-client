@@ -1,19 +1,24 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 import { purple, deepOrange } from '@material-ui/core/colors'
+import { PaletteOptions } from '@material-ui/core/styles/createPalette'
 
-const rootTheme = createMuiTheme({
+const commonPalette: PaletteOptions = {
+    primary: {
+        main: purple[500],
+        contrastText: '#fff'
+    },
+    secondary: {
+        main: deepOrange[500]
+    }
+}
+
+export const darkTheme = createMuiTheme({
     palette: {
+        ...commonPalette,
         type: 'dark',
         background: {
             default: '#121212',
             paper: '#0e0e0e',
-        },
-        primary: {
-            main: purple[500],
-            contrastText: '#fff'
-        },
-        secondary: {
-            main: deepOrange[500]
         },
         text: {
             primary: '#fff'
@@ -24,4 +29,9 @@ const rootTheme = createMuiTheme({
     }
 })
 
-export default rootTheme
+export const lightTheme = createMuiTheme({
+    palette: {
+        ...commonPalette,
+        type: 'light'
+    }
+})

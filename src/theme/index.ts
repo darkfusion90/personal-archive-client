@@ -1,3 +1,5 @@
-import rootTheme from './theme'
+import { lightTheme, darkTheme } from './theme'
+import persistTheme from './persist-theme'
 
-export default rootTheme
+export { lightTheme, darkTheme }
+export const { getTheme, setTheme, clearTheme } = persistTheme

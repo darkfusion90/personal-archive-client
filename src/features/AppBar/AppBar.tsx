@@ -9,6 +9,7 @@ import { grey } from '@material-ui/core/colors';
 import useAccount from '../../hooks/useAccount'
 import { routeMap } from '../../routes';
 import { AccountAvatar } from './components'
+import ThemeSwitcher from './components/ThemeSwitcher';
 
 const kStyleRemoveLink = {
     color: 'inherit',
@@ -22,7 +23,10 @@ const kStyleRemoveLink = {
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
-        flexGrow: 1
+        flexGrow: 1,
+        '& .MuiSvgIcon-root': {
+            fill: theme.palette.primary.contrastText
+        }
     },
     title: {
         flexGrow: 1,
@@ -64,6 +68,7 @@ const AppBar = () => {
                 >
                     Personal Archive
                 </Typography>
+                <ThemeSwitcher />
                 <LoginButton />
                 <AccountAvatar />
             </Toolbar>
