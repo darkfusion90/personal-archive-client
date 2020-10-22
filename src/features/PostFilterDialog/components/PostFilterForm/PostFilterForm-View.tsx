@@ -12,15 +12,19 @@ import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import { IPostFilterFormView } from '../../typings/PostFilterForm-View'
 import TextFormField from '../../../../components/form-fields/TextFormField'
+import SelectPostTags from '../../../../components/SelectPostTags'
 
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
         [theme.breakpoints.up('sm')]: {
-            minWidth: `${theme.breakpoints.width('sm') - 50}px`
+            minWidth: `${theme.breakpoints.width('sm') - 50}px`,
         },
         '& > *': {
             marginTop: theme.spacing(4)
+        },
+        '& > :last-child': {
+            marginBottom: theme.spacing(4)
         }
     }
 }))
@@ -61,6 +65,13 @@ const PostFilterFormView: IPostFilterFormView = ({
                 <Field
                     component={SortOrderComponent}
                     name='order'
+                />
+            </Grid>
+
+            <Grid item>
+                <SelectPostTags
+                    fieldLabel='Add Filter Tags'
+                    getOptionLabel={(value) => `Add tag "${value}"`}
                 />
             </Grid>
         </Grid>

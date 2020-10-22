@@ -12,7 +12,6 @@ import useFilter from '../../../../hooks/useFilter'
 import { RootState } from '../../../../store'
 import { selectFilterState } from '../../../../store/states/filter-state/filter-selectors'
 
-
 const kFormId = 'post-filter-form'
 
 const PostFilterFormConnector: IPostFilterFormConnector = ({ handleSubmit, afterSetFilter }) => {
@@ -20,7 +19,9 @@ const PostFilterFormConnector: IPostFilterFormConnector = ({ handleSubmit, after
     const [_, { setFilter }] = useFilter()
 
     const submitForm = (formValues: IPostFilterFormData) => {
-        setFilter({ ...formValues, tags: formValues.tags || [] })
+        const tags = (formValues.tags || []).map(tag => tag.value)
+
+        setFilter({ ...formValues, tags })
         afterSetFilter()
     }
 
@@ -29,9 +30,13 @@ const PostFilterFormConnector: IPostFilterFormConnector = ({ handleSubmit, after
 
 const mapStateToProps = (state: RootState) => {
     const filter = selectFilterState(state)
+    const tags = (filter.tags || []).map(value => ({
+        value,
+        label: `Add Tag: ${value}`
+    }))
 
     return {
-        initialValues: filter
+        initialValues: { ...filter, tags }
     }
 }
 

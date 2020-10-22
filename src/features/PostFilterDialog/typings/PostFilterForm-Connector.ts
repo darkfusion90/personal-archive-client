@@ -1,8 +1,9 @@
 import { InjectedFormProps } from 'redux-form'
+import { IPostTag } from '../../../components/SelectPostTags'
 
 export interface IPostFilterFormData {
     query?: string
-    tags?: string[]
+    tags?: IPostTag[]
     sort: 'title' | 'date'
     order: 'asc' | 'desc'
 }
