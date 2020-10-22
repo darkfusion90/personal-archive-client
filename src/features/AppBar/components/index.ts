@@ -1,3 +1,5 @@
-import AccountAvatar from './AccountAvatar'
+import AccountAvatar from './AccountAvatar/AccountAvatar'
+import AccountActions from './AccountActions'
+import ThemeSwitcher from './ThemeSwitcher'
 
-export { AccountAvatar }
+export { AccountAvatar, AccountActions, ThemeSwitcher }
