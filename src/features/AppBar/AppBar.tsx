@@ -2,14 +2,12 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 
 import MaterialAppBar from '@material-ui/core/AppBar'
-import { Toolbar, Typography, Button } from '@material-ui/core'
+import { Toolbar, Typography } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { grey } from '@material-ui/core/colors';
 
-import useAccount from '../../hooks/useAccount'
 import { routeMap } from '../../routes';
-import { AccountAvatar } from './components'
-import ThemeSwitcher from './components/ThemeSwitcher';
+import { AccountAvatar, AccountActions, ThemeSwitcher } from './components'
 
 const kStyleRemoveLink = {
     color: 'inherit',
@@ -42,20 +40,6 @@ const useStyles = makeStyles((theme) => createStyles({
 
 const AppBar = () => {
     const classes = useStyles()
-    // eslint-disable-next-line
-    const [account, _, { loading: isAccountLoading }] = useAccount()
-
-    const LoginButton = () => {
-        if (account.loggedIn || isAccountLoading) {
-            return null
-        }
-
-        return (
-            <Button color='inherit' component={NavLink} to={routeMap.login.path}>
-                Login
-            </Button>
-        )
-    }
 
     return (
         <MaterialAppBar className={classes.root}>
@@ -69,7 +53,7 @@ const AppBar = () => {
                     Personal Archive
                 </Typography>
                 <ThemeSwitcher />
-                <LoginButton />
+                <AccountActions />
                 <AccountAvatar />
             </Toolbar>
         </MaterialAppBar>
