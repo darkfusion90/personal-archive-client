@@ -10,7 +10,21 @@ export interface IPostTag {
     label: string
 }
 
-const renderSelect = ({ input: { value: currentValue, onChange } }: WrappedFieldProps) => {
+interface ISelectPostTagsProps {
+    fieldLabel?: string
+    getOptionLabel?: ValueCallback<IPostTag['value'], IPostTag['label']>
+}
+
+type IRenderSelectProps = ISelectPostTagsProps & WrappedFieldProps
+
+const renderSelect = ({
+    input: {
+        value: currentValue,
+        onChange
+    },
+    fieldLabel,
+    getOptionLabel
+}: IRenderSelectProps) => {
     return (
         <AutoComplete<IPostTag, true>
             id="tags-outlined"
@@ -21,9 +35,13 @@ const renderSelect = ({ input: { value: currentValue, onChange } }: WrappedField
             filterOptions={(_, { inputValue }) => {
                 const filtered: IPostTag[] = []
                 if (inputValue !== '') {
+                    const label = getOptionLabel ?
+                        getOptionLabel(inputValue) :
+                        `Create tag "${inputValue}"`
+
                     filtered.push({
                         value: inputValue.trim(),
-                        label: `Create tag "${inputValue}"`
+                        label
                     })
                 }
 
@@ -34,7 +52,7 @@ const renderSelect = ({ input: { value: currentValue, onChange } }: WrappedField
                 <TextField
                     {...params}
                     variant="outlined"
-                    label="Create Tags"
+                    label={fieldLabel || "Create Tags"}
                     placeholder="Tags"
                 />
             )}
@@ -75,11 +93,16 @@ const renderSelect = ({ input: { value: currentValue, onChange } }: WrappedField
     )
 }
 
-const SelectPostTags = () => {
+const SelectPostTags: React.FC<ISelectPostTagsProps> = ({
+    fieldLabel,
+    getOptionLabel
+}) => {
     return (
         <Field
             name='tags'
             component={renderSelect}
+            fieldLabel={fieldLabel}
+            getOptionLabel={getOptionLabel}
         />
     )
 }
