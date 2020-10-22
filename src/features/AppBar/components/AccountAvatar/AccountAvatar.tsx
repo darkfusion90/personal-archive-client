@@ -2,7 +2,7 @@ import React from 'react'
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
 
-import useAccount from '../../../hooks/useAccount'
+import useAccount from '../../../../hooks/useAccount'
 import AccountMenu from './AccountMenu';
 
 const AccountAvatar = () => {

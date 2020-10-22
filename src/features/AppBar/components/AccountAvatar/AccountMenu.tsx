@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-import useAccount from '../../../hooks/useAccount';
+import useAccount from '../../../../hooks/useAccount';
 
 interface IAccountMenuProps {
     anchorElement: null | HTMLElement
