@@ -1,13 +1,32 @@
-import { loginAsync, logoutAsync, updateAccountAsync, createAccountAsync } from '../actions'
+import {
+    loginAsync,
+    logoutAsync,
+    updateAccountAsync,
+    createAccountAsync,
+    enableMultifactorAuthAsync,
+    disableMultifactorAuthAsync
+} from '../actions'
 import { asyncMatchFulfilled } from "../../../utils";
 import { ThunkMiddleware } from "../../../@types/thunk-middleware";
+import { AsyncThunk } from '@reduxjs/toolkit';
+
+type AnyAsyncThunk = AsyncThunk<any, any, any>
+
+const matchAtleastOne = (actionToMatch: AnyAsyncThunk, actions: AnyAsyncThunk[]) => {
+    return actions.some(action => asyncMatchFulfilled(action, actionToMatch))
+}
 
 const monitorLoginMiddleware: ThunkMiddleware = (api) => (next) => (action) => {
-    const hasLoggedIn = asyncMatchFulfilled(loginAsync, action)
-    const hasLoggedOut = asyncMatchFulfilled(logoutAsync, action)
-    const hasRegistered = asyncMatchFulfilled(createAccountAsync, action)
+    const actionsThatChangeLoginInfo = [
+        loginAsync,
+        logoutAsync,
+        createAccountAsync,
+        enableMultifactorAuthAsync,
+        disableMultifactorAuthAsync
+    ]
+    const hasLoginInfoChanged = matchAtleastOne(action, actionsThatChangeLoginInfo)
 
-    if (hasLoggedIn || hasLoggedOut || hasRegistered) {
+    if (hasLoginInfoChanged) {
         api.dispatch(updateAccountAsync())
     }
 

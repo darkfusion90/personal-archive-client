@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage"
 import CreatePostPageForm from "./pages/CreatePostPage"
 import RegisterPage from "./pages/RegisterPage"
 import EditPostPage from './pages/EditPostPage'
+import AccountPage from "./pages/AccountPage"
 
 interface IRouteMap {
     home: IRoute
@@ -10,6 +11,7 @@ interface IRouteMap {
     register: IRoute
     createPost: IRoute
     editPost: IRoute
+    account: IRoute
 }
 
 interface IRoute {
@@ -42,6 +44,11 @@ export const routeMap: IRouteMap = {
     editPost: {
         path: '/posts/:postId/edit',
         component: EditPostPage,
+        exact: true
+    },
+    account: {
+        path: '/account',
+        component: AccountPage,
         exact: true
     }
 }

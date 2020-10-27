@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom'
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -7,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import useAccount from '../../../../hooks/useAccount';
+import { routeMap } from '../../../../routes';
 
 interface IAccountMenuProps {
     anchorElement: null | HTMLElement
@@ -44,7 +46,7 @@ const AccountMenu: React.FC<IAccountMenuProps> = ({ anchorElement, onCloseMenu }
             open={Boolean(anchorElement)}
             onClose={onCloseMenu}
         >
-            <MenuItem>
+            <MenuItem component={NavLink} to={routeMap.account.path}>
                 <Typography className={classes.loggedInAs}>Logged in as:</Typography>
                 <Typography className={classes.username} noWrap>
                     {username ? username : '-'}
