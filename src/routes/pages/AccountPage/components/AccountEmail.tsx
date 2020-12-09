@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Alert from '@material-ui/lab/Alert'
 import { SettingCard } from './SettingCard'
+import LoadingButton from '../../../../components/LoadingButton'
+import { requestEmailVerification } from '../../../../api/auth'
+import useAsyncAction from '../../../../hooks/useAsyncAction'
 
 export const AccountEmail: IAccountEmail = (props) => {
     return (
@@ -29,9 +32,18 @@ const AccountEmailMeta: IAccountEmail = ({ email, emailVerified }) => {
 }
 
 const AccountEmailVerificationAlert = () => {
+    const [{ status }, { performAction }] = useAsyncAction({ action: requestEmailVerification })
+
     return (
-        <Alert severity='info'>
-            Your email address is not verified. Send verification email
+        <Alert
+            severity='info'
+            action={
+                <LoadingButton loading={status === 'loading'} onClick={() => performAction()}>
+                    Send verification email
+                </LoadingButton>
+            }
+        >
+            Your email address is not verified
         </Alert>
     )
 }
