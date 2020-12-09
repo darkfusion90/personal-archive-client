@@ -19,7 +19,9 @@ const useStyles = makeStyles((theme) => createStyles({
     },
 }))
 
-const LinkTypography: React.FC<TypographyProps & LinkProps & { linkOutsideApp?: boolean }> = ({
+export type ILinkTypographyProps = TypographyProps & LinkProps & { linkOutsideApp?: boolean }
+
+const LinkTypography: React.FC<ILinkTypographyProps> = ({
     className,
     to,
     linkOutsideApp,
@@ -32,7 +34,7 @@ const LinkTypography: React.FC<TypographyProps & LinkProps & { linkOutsideApp?: 
         linkProps.component = 'a'
         linkProps.href = to
         linkProps.target = '_blank'
-    }else{
+    } else {
         linkProps.component = Link
         linkProps.to = to
     }
