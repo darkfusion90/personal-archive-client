@@ -4,6 +4,7 @@ import CreatePostPageForm from "./pages/CreatePostPage"
 import RegisterPage from "./pages/RegisterPage"
 import EditPostPage from './pages/EditPostPage'
 import AccountPage from "./pages/AccountPage"
+import EmailVerification from "./pages/EmailVerification"
 
 interface IRouteMap {
     home: IRoute
@@ -12,6 +13,7 @@ interface IRouteMap {
     createPost: IRoute
     editPost: IRoute
     account: IRoute
+    verifyEmail: IRoute
 }
 
 interface IRoute {
@@ -49,6 +51,11 @@ export const routeMap: IRouteMap = {
     account: {
         path: '/account',
         component: AccountPage,
+        exact: true
+    },
+    verifyEmail: {
+        path: '/email-verification/:token',
+        component: EmailVerification,
         exact: true
     }
 }
