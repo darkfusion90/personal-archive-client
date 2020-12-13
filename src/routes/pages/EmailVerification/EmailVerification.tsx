@@ -32,16 +32,12 @@ const EmailVerification = () => {
         { performAction: verifyToken }
     ] = useAsyncAction<string>({ action: checkEmailVerificationToken })
 
-    console.log({ token, tokenCheckStatus })
-
     React.useEffect(() => {
         if (tokenCheckStatus === 'uninitiated') {
-            console.log('Will verify token!')
+            console.log("Will verify")
             verifyToken(token)
-        } else {
-            console.log('Will not verify token')
         }
-    }, [token, verifyToken, tokenCheckStatus])
+    }, [tokenCheckStatus, verifyToken, token])
 
     if (tokenCheckStatus === 'loading' || tokenCheckStatus === 'uninitiated') {
         return <LoadingDialog open={true} loadingText='Verifying Token' />
