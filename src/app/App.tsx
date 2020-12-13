@@ -9,9 +9,9 @@ import AppScaffold from '../features/AppScaffold/AppScaffold'
 import PageNotFound from '../routes/pages/PageNotFound'
 
 const AppContent = () => {
-    const { loading } = useAccount({ autoFetch: true })[2]
+    const { loading, uninitiated } = useAccount({ autoFetch: true })[2]
 
-    if (loading) {
+    if (uninitiated || loading) {
         return <SplashScreen />
     }
 
