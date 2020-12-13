@@ -1,13 +1,16 @@
-import { AsyncThunk } from "@reduxjs/toolkit";
+export default function unwrapAxiosError(actionToMatch: any) {
+    return (result: any) => {
+        // If not an async thunk, return the action
+        if (!actionToMatch.fulfilled) {
+            return result
+        }
 
-export default function unwrapAxiosError(actionToMatch: AsyncThunk<any, any, any>) {
-    return (resultAction: any) => {
-        if (actionToMatch.fulfilled.match(resultAction)) {
-            return resultAction.payload
-        } else if (actionToMatch.rejected.match(resultAction)) {
-            throw resultAction.payload
+        if (actionToMatch.fulfilled.match(result)) {
+            return result.payload
+        } else if (actionToMatch.rejected.match(result)) {
+            throw result.payload
         } else {
-            return resultAction
+            return result
         }
     }
 }
