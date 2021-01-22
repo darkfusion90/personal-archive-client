@@ -4,7 +4,8 @@ import {
     updateAccountAsync,
     createAccountAsync,
     enableMultifactorAuthAsync,
-    disableMultifactorAuthAsync
+    disableMultifactorAuthAsync,
+    editAccountAsync
 } from '../actions'
 import { asyncMatchFulfilled } from "../../../utils";
 import { ThunkMiddleware } from "../../../@types/thunk-middleware";
@@ -21,6 +22,7 @@ const monitorLoginMiddleware: ThunkMiddleware = (api) => (next) => (action) => {
         loginAsync,
         logoutAsync,
         createAccountAsync,
+        editAccountAsync,
         enableMultifactorAuthAsync,
         disableMultifactorAuthAsync
     ]

@@ -5,4 +5,5 @@ import register from './register-api'
 
 export * from './multifactor'
 export * from './email-verification'
+export * from './password-reset'
 export { login, logout, status, register }

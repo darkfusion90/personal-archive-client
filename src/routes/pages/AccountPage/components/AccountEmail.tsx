@@ -8,13 +8,14 @@ import { SettingCard } from './SettingCard'
 import LoadingButton from '../../../../components/LoadingButton'
 import { requestEmailVerification } from '../../../../api/auth'
 import useAsyncAction from '../../../../hooks/useAsyncAction'
+import AccountActionButton from './AccountActionButton'
 
 export const AccountEmail: IAccountEmail = (props) => {
     return (
         <SettingCard
             title='Email'
             subtitle={<AccountEmailMeta {...props} />}
-            action={<Button variant='contained' color='primary'>Change Email Address</Button>}
+            action={<AccountActionButton toEdit='email'>Change Email Address</AccountActionButton>}
             extra={!props.emailVerified && <AccountEmailVerificationAlert />}
         />
     )

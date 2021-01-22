@@ -1,19 +1,34 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-
 import useAsyncAction from '../../../hooks/useAsyncAction'
 import { checkEmailVerificationToken } from '../../../api/auth'
+import LoadingDialog from '../../../features/LoadingDialog'
+import { Typography, Grid, Container } from '@material-ui/core'
+import LinkTypography, { ILinkTypographyProps } from '../../../components/LinkTypography'
 import { routeMap } from '../../routes'
-import UnderlinedLink from '../../../components/UnderlinedLink'
-import InfoContainer from '../../../components/InfoContainer'
-import AsyncContainer from '../../../components/AsyncContainer'
 
+import { makeStyles, createStyles } from '@material-ui/core/styles'
+import InfoContainer from '../../../components/InfoContainer'
+import UnderlinedLink from '../../../components/UnderlinedLink'
+import AsyncContainer from '../../../components/AsyncContainer'
+const useStyles = makeStyles((theme) => createStyles({
+    root: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    link: {
+        textDecoration: 'underline'
+    }
+}))
 
 interface IEmailVerificationUrlParams {
     token: string
 }
 
-const EmailVerification = () => {
+const PasswordReset = () => {
     const { token } = useParams<IEmailVerificationUrlParams>()
     const [
         { status: tokenCheckStatus },
@@ -22,24 +37,12 @@ const EmailVerification = () => {
 
     React.useEffect(() => {
         if (tokenCheckStatus === 'uninitiated') {
-            console.log("Will verify")
             verifyToken(token)
         }
     }, [tokenCheckStatus, verifyToken, token])
 
     return <AsyncContainer
         asyncStatus={tokenCheckStatus}
-        loadingText='Verifying Token'
-        successContent={
-            <InfoContainer
-                title='Thank you for verifying your email address!'
-                subtitle={
-                    <UnderlinedLink to={routeMap.home.path}>
-                        Go to home page
-                    </UnderlinedLink>
-                }
-            />
-        }
         errorContent={
             <InfoContainer
                 title='This link is either invalid or has already expired'
@@ -49,12 +52,22 @@ const EmailVerification = () => {
                         <UnderlinedLink to={routeMap.account.path}>
                             Account Page
                         </UnderlinedLink>
-                        {' '}to generate a new link to verify your email address
+                        {' '}to generate a new password reset token
                     </>
+                }
+            />
+        }
+        successContent={
+            <InfoContainer
+                title='Your password successfully reset'
+                subtitle={
+                    <UnderlinedLink to={routeMap.home.path}>
+                        Go to home page
+                    </UnderlinedLink>
                 }
             />
         }
     />
 }
 
-export default EmailVerification
+export default PasswordReset

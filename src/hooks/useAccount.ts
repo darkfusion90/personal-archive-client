@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux'
 
 import AccountModel from '../store/models/AccountModel'
 import { accountSelector } from '../store/states/account-state/account-selectors'
-import { updateAccountAsync, loginAsync, logoutAsync, createAccountAsync, enableMultifactorAuthAsync, disableMultifactorAuthAsync } from '../store/states/account-state/actions'
+import { editAccountAsync, updateAccountAsync, loginAsync, logoutAsync, createAccountAsync, enableMultifactorAuthAsync, disableMultifactorAuthAsync } from '../store/states/account-state/actions'
 import { useAppDispatch } from '../store'
 import { unwrapResult } from '@reduxjs/toolkit'
+
+export type IEditableAccountField = 'username' | 'email'
 
 interface AccountHookOpts {
     autoFetch: boolean
@@ -28,6 +30,7 @@ interface AccountActions {
     logout: VoidCallback
     createAccount: ValueCallback<RegisterData>
     updateAccount: VoidCallback
+    editAccount: (toEdit: IEditableAccountField, value: string) => any
     multifactor: MultifactorAccountActions
 }
 
@@ -60,6 +63,7 @@ const useAccount = ({ autoFetch }: AccountHookOpts = { autoFetch: false }): Acco
             logout: () => dispatch(logoutAsync()),
             createAccount: (data) => dispatch(createAccountAsync(data)),
             updateAccount: () => dispatch(updateAccountAsync()),
+            editAccount: (toEdit, value) => dispatch(editAccountAsync({ toEdit, value })),
             multifactor: {
                 enableMultifactor: () => dispatch(enableMultifactorAuthAsync()),
                 disableMultifactor: () => dispatch(disableMultifactorAuthAsync())
