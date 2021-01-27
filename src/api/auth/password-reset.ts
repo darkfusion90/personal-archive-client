@@ -5,5 +5,8 @@ const url = '/api/auth/password-reset'
 export const requestPasswordResetToken = (username: string) =>
     axios.post(`${url}/generate`, { username })
 
-export const attemptPasswordReset = (passwordResetToken: string, password: string) =>
-    axios.post(`${url}/verify/${passwordResetToken}`, { password })
+export const attemptPasswordReset = ({ passwordResetToken, password }: { passwordResetToken: string, password: string }) =>
+    axios.post(`${url}/reset/${passwordResetToken}`, { password })
+
+export const checkPasswordResetToken = (passwordResetToken: string) =>
+    axios.get(`${url}/check/${passwordResetToken}`)
