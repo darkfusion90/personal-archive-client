@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import AccountModel from '../store/models/AccountModel'
 import { accountSelector } from '../store/states/account-state/account-selectors'
-import { editAccountAsync, updateAccountAsync, loginAsync, logoutAsync, createAccountAsync, enableMultifactorAuthAsync, disableMultifactorAuthAsync } from '../store/states/account-state/actions'
+import { editAccountAsync, updateAccountAsync, loginAsync, logoutAsync, createAccountAsync, enableMultifactorAuthAsync, disableMultifactorAuthAsync, resetPasswordAsync } from '../store/states/account-state/actions'
 import { useAppDispatch } from '../store'
 import { unwrapResult } from '@reduxjs/toolkit'
 
@@ -31,6 +31,7 @@ interface AccountActions {
     createAccount: ValueCallback<RegisterData>
     updateAccount: VoidCallback
     editAccount: (toEdit: IEditableAccountField, value: string) => any
+    resetPassword: (data: { passwordResetToken: string, password: string }) => any
     multifactor: MultifactorAccountActions
 }
 
@@ -67,7 +68,8 @@ const useAccount = ({ autoFetch }: AccountHookOpts = { autoFetch: false }): Acco
             multifactor: {
                 enableMultifactor: () => dispatch(enableMultifactorAuthAsync()),
                 disableMultifactor: () => dispatch(disableMultifactorAuthAsync())
-            }
+            },
+            resetPassword: (data) => dispatch(resetPasswordAsync(data))
         },
         {
             loading: accountFetchStatus === 'loading',

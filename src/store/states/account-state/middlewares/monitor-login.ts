@@ -5,7 +5,8 @@ import {
     createAccountAsync,
     enableMultifactorAuthAsync,
     disableMultifactorAuthAsync,
-    editAccountAsync
+    editAccountAsync,
+    resetPasswordAsync
 } from '../actions'
 import { asyncMatchFulfilled } from "../../../utils";
 import { ThunkMiddleware } from "../../../@types/thunk-middleware";
@@ -24,7 +25,8 @@ const monitorLoginMiddleware: ThunkMiddleware = (api) => (next) => (action) => {
         createAccountAsync,
         editAccountAsync,
         enableMultifactorAuthAsync,
-        disableMultifactorAuthAsync
+        disableMultifactorAuthAsync,
+        resetPasswordAsync
     ]
     const hasLoginInfoChanged = matchAtleastOne(action, actionsThatChangeLoginInfo)
 
