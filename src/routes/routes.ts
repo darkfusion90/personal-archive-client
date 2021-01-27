@@ -6,6 +6,7 @@ import EditPostPage from './pages/EditPostPage'
 import AccountPage from "./pages/AccountPage"
 import EmailVerification from "./pages/EmailVerification"
 import PasswordReset from "./pages/PasswordReset"
+import InitiatePasswordReset from "./pages/InitiatePasswordReset"
 
 interface IRouteMap {
     home: IRoute
@@ -15,6 +16,7 @@ interface IRouteMap {
     editPost: IRoute
     account: IRoute
     verifyEmail: IRoute
+    initiatePasswordReset: IRoute
     passwordReset: IRoute
 }
 
@@ -63,6 +65,11 @@ export const routeMap: IRouteMap = {
     passwordReset: {
         path: '/password-reset/perform-reset/:token',
         component: PasswordReset,
+        exact: true
+    },
+    initiatePasswordReset: {
+        path: '/password-reset/initiate',
+        component: InitiatePasswordReset,
         exact: true
     }
 }
