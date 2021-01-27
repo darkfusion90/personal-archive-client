@@ -1,18 +1,19 @@
 import React from 'react'
-import { InputAdornment, IconButton } from '@material-ui/core'
+import { InputAdornment, IconButton, TextFieldProps } from '@material-ui/core'
 import VisibilityOn from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 import TextFormField from './TextFormField'
 
-interface IPasswordFieldProps {
+type IPasswordFieldProps = TextFieldProps & {
     name: string
     label: string
 }
 
 const PasswordField: React.FC<IPasswordFieldProps> = ({
     name,
-    label
+    label,
+    ...props
 }) => {
     const [showPassword, setShowPassword] = React.useState(false)
 
@@ -38,6 +39,7 @@ const PasswordField: React.FC<IPasswordFieldProps> = ({
                     </InputAdornment>
                 )
             }}
+            {...props}
         />
     )
 }
