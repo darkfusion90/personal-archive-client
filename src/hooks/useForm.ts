@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 import { useSnackbar } from "notistack"
 
-interface IUseFormHookActions<Meta, Error> {
+export interface IUseFormHookActions<Meta, Error> {
+    resetFormState: VoidCallback
     setFormSubmitting: VoidCallback
     setFormSubmitFail: ValueCallback<Error>
     setFormSubmitSuccess: ValueCallback<Meta>
@@ -45,6 +46,7 @@ const useForm = <Meta = void, Error = void>({ successSnackbarMessage, failureSna
     return [
         formState,
         {
+            resetFormState: () => setFormState({ status: 'initial', meta: undefined, error: undefined }),
             setFormSubmitSuccess: (meta: Meta) => setFormState({ status: 'submit-success', meta }),
             setFormSubmitFail: (error: Error) => setFormState({ status: 'submit-fail', error }),
             setFormSubmitting: () => setFormState({ status: 'submitting' })
