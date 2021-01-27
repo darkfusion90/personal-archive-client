@@ -1,45 +1,50 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Redirect } from 'react-router-dom'
 import useAsyncAction from '../../../hooks/useAsyncAction'
-import { checkEmailVerificationToken } from '../../../api/auth'
-import LoadingDialog from '../../../features/LoadingDialog'
-import { Typography, Grid, Container } from '@material-ui/core'
-import LinkTypography, { ILinkTypographyProps } from '../../../components/LinkTypography'
+import { checkPasswordResetToken } from '../../../api/auth'
 import { routeMap } from '../../routes'
 
-import { makeStyles, createStyles } from '@material-ui/core/styles'
 import InfoContainer from '../../../components/InfoContainer'
 import UnderlinedLink from '../../../components/UnderlinedLink'
 import AsyncContainer from '../../../components/AsyncContainer'
-const useStyles = makeStyles((theme) => createStyles({
-    root: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    link: {
-        textDecoration: 'underline'
-    }
-}))
+import { PasswordResetForm } from './components'
+import useForm from '../../../hooks/useForm'
 
-interface IEmailVerificationUrlParams {
+interface IPasswordResetUrlParams {
     token: string
 }
 
 const PasswordReset = () => {
-    const { token } = useParams<IEmailVerificationUrlParams>()
+    const { token } = useParams<IPasswordResetUrlParams>()
     const [
         { status: tokenCheckStatus },
-        { performAction: verifyToken }
-    ] = useAsyncAction<string>({ action: checkEmailVerificationToken })
+        { performAction: verifyToken, asyncActions: tokenCheckActions }
+    ] = useAsyncAction<string>({ action: checkPasswordResetToken })
 
     React.useEffect(() => {
         if (tokenCheckStatus === 'uninitiated') {
             verifyToken(token)
         }
     }, [tokenCheckStatus, verifyToken, token])
+
+    const [formState, formActions] = useForm<void, any>({
+        successSnackbarMessage: 'Password successfully reset',
+        failureSnackbarMessage: 'Password reset failed'
+    })
+
+    if (formState.status === 'submit-success') {
+        return <Redirect to='/' />
+    }
+
+    if (formState.status === 'submit-fail') {
+        // This delay will make sure the failure snackbar is shown to the user before re-rendering
+        setTimeout(() => {
+            formActions.resetFormState()
+            // this will force the component to check the validity of token again and hence re-render
+            // this will make sure that if the failure was due to invalid token, it is informed to the user
+            tokenCheckActions.setUninitiated()
+        }, 2000);
+    }
 
     return <AsyncContainer
         asyncStatus={tokenCheckStatus}
@@ -59,7 +64,11 @@ const PasswordReset = () => {
         }
         successContent={
             <InfoContainer
-                title='Your password successfully reset'
+                title={<PasswordResetForm
+                    passwordResetToken={token}
+                    formState={formState}
+                    formActions={formActions}
+                />}
                 subtitle={
                     <UnderlinedLink to={routeMap.home.path}>
                         Go to home page
