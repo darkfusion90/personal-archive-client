@@ -3,9 +3,11 @@ import { useSnackbar } from 'notistack'
 
 import LoginPageView from './LoginPage-View'
 import { ILoginPageContainer } from './typings/LoginPage-Container'
+import { requestDeviceVerificationToken } from '../../../api/auth'
 
 const LoginPageContainer: ILoginPageContainer = ({
     loginResult,
+    loginError,
     ...otherProps
 }) => {
     const { enqueueSnackbar } = useSnackbar()
@@ -26,7 +28,13 @@ const LoginPageContainer: ILoginPageContainer = ({
         }
     }
 
-    return <LoginPageView loginResult={loginResult} {...otherProps} />
+    React.useEffect(() => {
+        if (loginError === 'device-not-trusted') {
+            requestDeviceVerificationToken()
+        }
+    }, [loginError])
+
+    return <LoginPageView loginResult={loginResult} loginError={loginError} {...otherProps} />
 }
 
 export default LoginPageContainer
