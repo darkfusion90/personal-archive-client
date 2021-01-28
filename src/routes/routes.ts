@@ -7,6 +7,7 @@ import AccountPage from "./pages/AccountPage"
 import EmailVerification from "./pages/EmailVerification"
 import PasswordReset from "./pages/PasswordReset"
 import InitiatePasswordReset from "./pages/InitiatePasswordReset"
+import DeviceVerification from "./pages/DeviceVerification"
 
 interface IRouteMap {
     home: IRoute
@@ -18,6 +19,7 @@ interface IRouteMap {
     verifyEmail: IRoute
     initiatePasswordReset: IRoute
     passwordReset: IRoute
+    deviceVerification: IRoute
 }
 
 interface IRoute {
@@ -70,6 +72,11 @@ export const routeMap: IRouteMap = {
     initiatePasswordReset: {
         path: '/password-reset/initiate',
         component: InitiatePasswordReset,
+        exact: true
+    },
+    deviceVerification: {
+        path: '/device-verification/:token',
+        component: DeviceVerification,
         exact: true
     }
 }
