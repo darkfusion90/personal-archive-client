@@ -12,7 +12,8 @@ import PasswordField from '../../../components/form-fields/PasswordField'
 import LoadingButton from '../../../components/LoadingButton'
 import { red } from '@material-ui/core/colors'
 import { routeMap } from '../..'
-import { Divider } from '@material-ui/core'
+import { Divider, useMediaQuery, Theme } from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
@@ -59,12 +60,12 @@ const LoginPageView: ILoginPageView = ({
                     </Typography>
                 </Grid>
 
+                {loginError && <Grid item>
+                    <LoginError loginError={loginError} />
+                </Grid>
+                }
+
                 <Grid item>
-                    {loginError &&
-                        <Typography className={classes.error}>
-                            *{loginError}
-                        </Typography>
-                    }
                     <form id={formId} onSubmit={onFormSubmit}>
                         <Grid
                             item
@@ -108,6 +109,50 @@ const LoginPageView: ILoginPageView = ({
             </Grid>
         </div>
     )
+}
+
+const LoginError: React.FC<{ loginError: any }> = ({ loginError }) => {
+    const isSmallScreen = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'))
+    const isExtraSmallScreen = useMediaQuery<Theme>((theme) => theme.breakpoints.down('xs'))
+    const getMaxAlertWidth = () => {
+        // Make sure to check isExtraSmallScreen BEFORE isSmallScreen
+        // Since xs-down will also fulfill sm-down :)
+        if (isExtraSmallScreen) {
+            return '75vw'
+        }
+
+        if (isSmallScreen) {
+            return '40vw'
+        }
+
+        return '30vw'
+    }
+
+    if (!loginError) {
+        return null
+    }
+
+    if (loginError === 'device-not-trusted') {
+        return (
+            <Alert severity='error' style={{ maxWidth: getMaxAlertWidth() }}>
+                <Grid
+                    container
+                    direction='column'
+                >
+                    <Grid item>
+                        <Typography variant='h6'>
+                            This device/location is not trusted
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        Please check your email for instructions to mark the device/location as trusted
+                    </Grid>
+                </Grid>
+            </Alert>
+        )
+    }
+
+    return <Alert severity='error'>{loginError}</Alert>
 }
 
 export default LoginPageView
