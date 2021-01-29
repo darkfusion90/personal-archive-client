@@ -25,13 +25,15 @@ export const darkTheme = createMuiTheme({
         },
         action: {
             focus: '#f00'
-        }
+        },
+        divider: '#dedede'
     }
 })
 
 export const lightTheme = createMuiTheme({
     palette: {
         ...commonPalette,
+        divider: '#121212',
         type: 'light'
     }
 })
