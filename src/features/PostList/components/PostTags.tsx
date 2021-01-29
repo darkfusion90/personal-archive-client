@@ -30,7 +30,7 @@ const PostTags: IPostTags = ({ post: { tags } }) => {
         return null
     }
 
-    const remainingTags = tags.length - kMaxVisibleTags
+    const remainingTagsCount = tags.length - kMaxVisibleTags
 
     const renderSingleTag = (tag: string) => {
         // In case you're wondering why use color='primary' when already using that in className,
@@ -40,13 +40,13 @@ const PostTags: IPostTags = ({ post: { tags } }) => {
         return (
             <Chip
                 clickable
+                key={tag}
                 className={classes.tag}
                 size='small'
                 variant='outlined'
                 color='primary'
                 label={tag}
                 component='a'
-                href='http://localhost:7000'
                 target='_blank'
             />
         )
@@ -56,9 +56,9 @@ const PostTags: IPostTags = ({ post: { tags } }) => {
         <div className={classes.root}>
             {tags.slice(0, Math.min(kMaxVisibleTags, tags.length)).map(renderSingleTag)}
             {
-                remainingTags > 0 ?
+                remainingTagsCount > 0 ?
                     <Typography>
-                        + {remainingTags} tags
+                        + {remainingTagsCount} tags
                     </Typography> :
                     null
             }

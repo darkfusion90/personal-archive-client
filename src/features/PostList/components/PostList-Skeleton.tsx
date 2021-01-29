@@ -12,9 +12,9 @@ const PostListSkeleton: IPostListSkeleton = ({
     itemClassName = '',
     subheader
 }) => {
-    const renderSkeleton = () => {
+    const renderSkeleton = (_: any, index: number) => {
         return (
-            <ListItem className={itemClassName}>
+            <ListItem key={index} className={itemClassName}>
                 <ListItemText
                     primary={<WaveSkeleton />}
                     secondary={
