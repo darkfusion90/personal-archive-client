@@ -1,4 +1,5 @@
 import PostModel from "../../../store/models/PostModel";
+import FilterState from "../../../store/states/filter-state/FilterState";
 
 export interface IPostListViewProps {
     posts: PostModel[]
@@ -6,7 +7,7 @@ export interface IPostListViewProps {
     isLoading: boolean
     error?: any
     highlightPost?: string
-    searchQuery?: string
+    filter: FilterState
 }
 
 export type IPostListView = React.ComponentType<IPostListViewProps>

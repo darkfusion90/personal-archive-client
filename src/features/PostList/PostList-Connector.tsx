@@ -5,7 +5,7 @@ import useFilter from '../../hooks/useFilter'
 
 const PostListConnector: React.FC<{ highlightPost?: string }> = ({ highlightPost }) => {
     const [posts, { updateAllPosts }, { loading, error }] = usePosts({ autoFetch: true })
-    const [{ query }] = useFilter()
+    const [filter] = useFilter()
 
     return (
         <PostListView posts={posts}
@@ -13,7 +13,7 @@ const PostListConnector: React.FC<{ highlightPost?: string }> = ({ highlightPost
             highlightPost={highlightPost}
             isLoading={loading}
             error={error}
-            searchQuery={query}
+            filter={filter}
         />
     )
 }
