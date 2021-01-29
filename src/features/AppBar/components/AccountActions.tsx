@@ -19,10 +19,10 @@ const LoginButton = () => {
 
     return (
         <>
-            <LinkButton to={routeMap.login.path} variant='text'>
+            <LinkButton to={routeMap.login.path} variant='text' color='inherit'>
                 Login
             </LinkButton>
-            <LinkButton to={routeMap.register.path} variant='outlined'>
+            <LinkButton to={routeMap.register.path} variant='outlined' color='inherit'>
                 Register
             </LinkButton>
         </>
