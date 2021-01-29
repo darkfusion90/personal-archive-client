@@ -43,7 +43,7 @@ const PostListView: IPostListView = ({
     posts,
     highlightPost,
     isLoading,
-    searchQuery
+    filter: { query: searchQuery, tags: filterTags },
 }) => {
     const classes = useStyles()
 
@@ -61,11 +61,20 @@ const PostListView: IPostListView = ({
             return <NoPostsView />
         }
 
+        const filterDesc = []
+        if (!(searchQuery === "")) {
+            filterDesc.push(` query '${searchQuery}'`)
+        }
+        if (filterTags.length > 0) {
+            filterDesc.push(`${filterTags.length} selected tag(s)`)
+        }
+
         const noMatchingPosts = (
             <ListItem className={classes.item}>
                 <ListItemText primaryTypographyProps={{ align: 'center' }}>
-                    No posts matching the query '{searchQuery}'
-                            </ListItemText>
+                    No posts matching the{' '}
+                    {filterDesc.join(' and ')}
+                </ListItemText>
             </ListItem>
         )
 
@@ -77,12 +86,11 @@ const PostListView: IPostListView = ({
                 autoFocus={post.id === highlightPost}
             />
         )
-
         return (
             <List>
                 {subheader}
                 {
-                    searchQuery && posts.length === 0 ?
+                    posts.length === 0 ?
                         noMatchingPosts :
                         postListBody
                 }
